@@ -9,10 +9,10 @@ import {
 import Layout from "./layouts/Layout";
 import { AnimatePresence } from "framer-motion";
 /* lazy loaded components */
-const Hero = lazy(() => import("./components/Hero"));
-const Aboutme = lazy(() => import("./components/Aboutme"));
-const Projects = lazy(() => import("./components/Projects"));
-const Contact = lazy(() => import("./components/Contact"));
+const Hero = lazy(() => import("./components/hero/Hero"));
+const Aboutme = lazy(() => import("./components/aboutme/Aboutme"));
+const Projects = lazy(() => import("./components/projects/Projects"));
+const Contact = lazy(() => import("./components/contact/Contact"));
 const NotFound = lazy(() => import("./pages/NotFound"));
 
 const router = createBrowserRouter(

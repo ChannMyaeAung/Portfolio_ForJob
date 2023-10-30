@@ -1,4 +1,4 @@
-@import url("https://fonts.googleapis.com/css2?family=Noto+Sans:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Space+Mono:ital,wght@0,400;0,700;1,400;1,700&display=swap");
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -15,6 +15,12 @@
   );
 }
 
+.primary__color {
+  background: var(--primary-color);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: rgba(0, 0, 0, 0);
+}
+
 *,
 *::before,
 *::after {
@@ -28,7 +34,7 @@ html {
 }
 
 body {
-  font-family: "Noto Sans", sans-serif;
+  font-family: "Space Mono", monospace;
   color: #fff;
   width: 100%;
   background: url("./assets/grainy-bg.jpg") no-repeat center;
@@ -53,6 +59,9 @@ section {
 }
 
 /* Custom Special CSS Primary Classes */
+.primary__blueGradient {
+}
+
 .primary__heading {
   padding: inherit;
   height: 100%;
@@ -155,6 +164,9 @@ section {
 .text-scss {
   color: #c6538c;
 }
+.text-framer {
+  color: hsl(250, 70%, 60%);
+}
 
 /* Customizing React Modal Classes */
 
@@ -202,4 +214,44 @@ section {
     width: 70%;
     height: 60vh;
   }
+}
+
+/* Navbar/Sidebar Toggle Menu */
+.toggleMenu {
+  position: relative;
+  height: 25px;
+  width: 25px;
+  margin-top: 20px;
+  padding: 0 0.5rem;
+  transition: all 0.2s ease;
+  z-index: 20;
+  cursor: pointer;
+}
+
+.toggleMenu:hover,
+.toggleMenu:focus-visible {
+  transform: scale(1.2);
+}
+
+.toggleMenu__topBar,
+.toggleMenu__bottomBar {
+  width: 20px;
+  height: 2px;
+  position: absolute;
+  transition: all 1s ease-in-out;
+  z-index: 20;
+  top: 0;
+  background-color: white;
+}
+
+.toggleMenu__bottomBar {
+  transform: translate(5px, 10px) rotate(0deg);
+}
+
+.toggleMenu.open .toggleMenu__bottomBar {
+  transform: rotate(45deg);
+}
+
+.toggleMenu.open .toggleMenu__topBar {
+  transform: rotate(135deg);
 }
