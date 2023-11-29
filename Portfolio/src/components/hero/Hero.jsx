@@ -1,4 +1,4 @@
-import React from "react";
+import React, { Fragment } from "react";
 import { motion } from "framer-motion";
 import about from "../../assets/about.jpg";
 import styles from "../../style";
@@ -32,12 +32,14 @@ const Hero = () => {
   /* Func for rendering Header Section */
   function renderHeroHeader() {
     return (
-      <>
-        <img
-          src={about}
-          alt="A portrait image of me"
-          className="w-[200px] h-[200px] object-cover mx-auto rounded-full"
-        />
+      <div className="flex flex-col items-center sm:flex-row">
+        <figure className="w-[200px] h-[200px] mx-auto ">
+          <img
+            src={about}
+            alt="A portrait image of me"
+            className="object-cover w-full h-full rounded-full"
+          />
+        </figure>
 
         <header className="m-3 text-center">
           <h1 className={`${styles.heading2}`}>
@@ -60,14 +62,14 @@ const Hero = () => {
             <Cursor cursorColor="#cab197" />
           </h2>
         </header>
-      </>
+      </div>
     );
   }
 
   /* Func for rendering body section */
   function renderHeroBody() {
     return (
-      <>
+      <div className="flex flex-col items-center justify-between">
         <motion.p
           variants={fadeIn("left", 0.3)}
           initial="hidden"
@@ -103,73 +105,24 @@ const Hero = () => {
           })}
         </motion.div>
 
-        {/* Introductory Message */}
-        <motion.div
+        {/* <motion.div
           variants={fadeIn("right", 0.3)}
           initial="hidden"
           whileInView={"show"}
           viewport={{ once: true, amount: 0.7 }}
           className="px-3 my-3 text-justify sm:text-center"
-        >
-          <p className={`${styles.paragraph}`}>
-            Welcome to my virtual home on the internet. I'm delighted to have
-            you here and I want to extend my heartfelt thanks for taking the
-            time to explore what I've built.
-          </p>
-
-          <p className={`${styles.paragraph} `}>
-            If you have any questions or feedback or simply to connect, don't
-            hesitate to reach out by clicking the button below.
-          </p>
-        </motion.div>
-
-        {/* Pointing Animation from Lottie */}
-        <Lottie
-          className="w-[100px] aspect-[16/9]"
-          animationData={pointingAnimation}
-          aria-describedby="Hand pointing towards the reach-out button"
-        />
-
+        > */}
         {/* Reach out Button */}
-        <a
-          href="mailto: chanmyaeaung@my.jcu.edu.au"
-          style={{ marginTop: "0" }}
-          className={` ${styles.cursorTransition} primary__button hover:text-[#c86800] hover:bg-white focus-visible::bg-white focus-visible:text-[#c86800]`}
-          target="_blank"
-        >
-          Reach out
-        </a>
-
-        <motion.div
-          variants={fadeIn("up", 0.3)}
-          initial="hidden"
-          whileInView={"show"}
-          viewport={{ once: true, amount: 0.7 }}
-          className={`flex tracking-wider flex-col px-3 items-start w-full max-w-[600px] mx-auto justify-start gap-6 xs:gap-0 xs:flex-row xs:items-center xs:justify-between mt-16 mb-8`}
-        >
-          <NavLink
-            variants={fadeIn("right", 0.3)}
-            initial="hidden"
-            whileInView={"show"}
-            viewport={{ once: true, amount: 0.7 }}
-            to={`aboutme`}
-            className={`border-black ${styles.flexCenter} gap-2 text-black shadow-shadow_btn bg-btn_green py-1 px-6 underline-offset-8  duration-200 hover:text-white`}
+        {/* <a
+            href="mailto: chanmyaeaung@my.jcu.edu.au"
+            style={{ marginTop: "0" }}
+            className={` ${styles.cursorTransition} primary__button hover:text-[#c86800] hover:bg-white focus-visible::bg-white focus-visible:text-[#c86800]`}
+            target="_blank"
           >
-            Learn more about me <SendOutlinedIcon />
-          </NavLink>
-
-          <NavLink
-            variants={fadeIn("left", 0.3)}
-            initial="hidden"
-            whileInView={"show"}
-            viewport={{ once: true, amount: 0.7 }}
-            to={`projects`}
-            className={`border-black ${styles.flexCenter} gap-2 text-black shadow-shadow_btn bg-btn_green py-1 px-6 underline-offset-8  duration-200 hover:text-white`}
-          >
-            Explore my projects <SendOutlinedIcon />
-          </NavLink>
-        </motion.div>
-      </>
+            Reach out
+          </a> */}
+        {/* </motion.div> */}
+      </div>
     );
   }
 
@@ -177,11 +130,13 @@ const Hero = () => {
     <article
       id="Introduction"
       aria-label="Introductory Hero Section"
-      className={`${styles.paddingX}`}
+      className={``}
     >
-      {renderHeroHeader()}
+      <section className="flex flex-col items-center justify-center sm:gap-6">
+        {renderHeroHeader()}
+      </section>
 
-      <section className="flex flex-col items-center justify-center gap-3 border-none">
+      <section className="flex flex-col justify-center ">
         {renderHeroBody()}
       </section>
     </article>

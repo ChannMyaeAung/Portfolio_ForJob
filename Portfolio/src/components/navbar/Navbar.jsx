@@ -4,7 +4,7 @@ import { motion } from "framer-motion";
 import logo from "../../assets/logo_transparent.png";
 import { navLinks } from "../../data/nav";
 import { NavLink } from "react-router-dom";
-import Logo from "../../assets/animations/logo_animation.json";
+import logoAnimation from "../../assets/animations/logo_animation.json";
 import Lottie from "lottie-react";
 
 const variants = {
@@ -16,7 +16,7 @@ const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
 
   function toggleMenu() {
-    setIsOpen(!isOpen);
+    setIsOpen((prev) => !prev);
   }
 
   function renderNavbar() {
@@ -24,11 +24,13 @@ const Navbar = () => {
       <>
         {/* Logo */}
         <NavLink to={`/`} className={`flex items-center `}>
-          <img
-            src={logo}
-            alt="logo"
-            className={`w-[150px] ${styles.cursorTransition}  md:w-[180px] h-[50px] object-contain hover:scale-110 focus-visible:scale-110`}
+          <Lottie
+            animationData={logoAnimation}
+            className="object-cover w-16 h-16"
           />
+          <h1 className="text-xl font-extrabold text-subtitle">
+            Chan Myae Aung
+          </h1>
         </NavLink>
 
         {/* Mobile Menu Toggle  Vanilla CSS used in index.css*/}
@@ -102,7 +104,7 @@ const Navbar = () => {
       id="Navigation__Bar"
       role="navigation"
       aria-label="Main Navigation"
-      className={`z-[3] w-full flex items-center justify-between mb-5 py-6`}
+      className={`z-[999] w-full flex items-center justify-between mb-5 py-2 `}
     >
       {renderNavbar()}
     </nav>

@@ -5,10 +5,12 @@ import ScrollToTop from "../components/ScrollToTop";
 
 const Layout = () => {
   return (
-    <main className="flex flex-col justify-between w-full min-h-screen px-6 sm:px-16">
+    <main className="flex flex-col justify-between w-full min-h-screen px-3.5 md:px-16">
       <ScrollToTop />
       <Header />
+
       <Outlet />
+
       <Footer />
     </main>
   );

@@ -1,10 +1,9 @@
 import React from "react";
 import Navbar from "../components/navbar/Navbar";
-import { NavLink, Outlet } from "react-router-dom";
 
 const Header = () => {
   return (
-    <header>
+    <header className="fixed top-0 left-0 w-full z-[999]">
       <Navbar />
     </header>
   );

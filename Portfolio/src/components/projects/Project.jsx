@@ -1,86 +1,91 @@
-import React from "react";
-import { projectsData } from "../../data/projects";
-import styles from "../../style";
+import React, { useEffect, useRef, useState } from "react";
+import { motion, useScroll, useTransform } from "framer-motion";
+import { fadeIn } from "../../animation";
+import { NavLink } from "react-router-dom";
 
-const Project = () => {
+const Project = ({ item }) => {
+  const ref = useRef();
+  const { scrollYProgress } = useScroll({
+    target: ref,
+  });
+
+  const [screenWidth, setScreenWidth] = useState(window.innerWidth);
+
+  /* Rerender when the screen size changes */
+  useEffect(() => {
+    const handleResize = () => {
+      setScreenWidth(window.innerWidth);
+    };
+
+    window.addEventListener("resize", handleResize);
+
+    return () => {
+      window.removeEventListener("resize", handleResize);
+    };
+  }, []);
+
+  /* Disable animation on small screens below 768px */
+  const shouldAnimateY = screenWidth >= 768;
+
+  const y = useTransform(
+    scrollYProgress,
+    [0, 1],
+    shouldAnimateY ? [-500, 500] : [0, 0]
+  );
+
   return (
-    <>
-      {projectsData.map((project, index) => {
-        const {
-          title,
-          technologies,
-          description,
-          sourceCodeLink,
-          demoLink,
-          image,
-        } = project;
-
-        return (
-          //Projects
-          <article
-            className={`flex gap-10 mb-8 flex-col items-center w-full max-w-[1200px]  mx-auto ${
-              index % 2 === 0 ? "md:flex-row-reverse" : "md:flex-row"
-            }`}
-            id="projects"
-            key={title}
+    <section className="overflow-hidden ">
+      <div
+        id="project__container"
+        className="flex items-center justify-center w-full h-full overflow-hidden "
+      >
+        <div
+          id="project__wrapper"
+          className="max-w-[1366px] flex-col sm:flex-row h-full m-auto flex items-center justify-center gap-12"
+        >
+          {/* Image Container */}
+          <motion.figure
+            id="project__img_container"
+            ref={ref}
+            className="sm:flex-1 w-full max-h-[280px] sm:max-h-auto sm:h-full"
           >
-            {/* Image */}
+            <img
+              src={item.image}
+              alt={item.title}
+              className="object-contain w-full h-full sm:object-cover"
+            />
+          </motion.figure>
 
-            <figure>
-              <img
-                src={image}
-                alt="project-image"
-                className={`border-4 rounded-lg border-[#c86800]`}
-              />
-            </figure>
-
-            {/* Project Descriptions */}
-            <div
-              className={`flex flex-col items-start justify-around gap-5 mb-5 primary__description ${
-                index % 2 === 0
-                  ? "primary__description_left"
-                  : "primary__description_right"
-              }`}
-            >
-              {/* List of technologies used */}
-              <h1 className="grid justify-between grid-cols-2 gap-3 font-semibold gap-y-4 sm:flex place-items-start sm:gap-4">
-                {technologies.map((tech, i) => (
-                  <span
-                    key={i}
-                    className={`text-${tech.toLowerCase()} text-center z-[3]`}
-                  >
-                    {tech}
-                  </span>
-                ))}
-              </h1>
-
-              {/* Project Description */}
-              <p className={`${styles.paragraph} z-[3]`}>{description}</p>
-
-              {/* Source Code & Demo Link */}
-              <div className="flex gap-5 z-[3]">
-                <button
-                  className={`${styles.cursorTransition} border px-3 rounded-lg hover:bg-primary_green py-1 border-primary_green`}
-                >
-                  <a href={sourceCodeLink} target="_blank">
-                    Source Code
-                  </a>
-                </button>
-                <button
-                  className={`${styles.cursorTransition} border px-3 rounded-lg hover:bg-pink-800 py-1 border-pink-800`}
-                >
-                  <a href={demoLink} target="_blank">
-                    Demo Website
-                  </a>
-                </button>
-              </div>
-              {/* End of Source Code & Demo Link */}
+          {/* Text Container */}
+          <motion.div
+            id="project__text_container"
+            style={{ y }}
+            className="flex flex-col items-center gap-3 p-3 text-center sm:flex-1 sm:text-start sm:items-start sm:gap-7"
+          >
+            <h2 className="text-2xl sm:text-6xl">{item.title}</h2>
+            <p className="text-sm text-gray-400 sm:text-xl">
+              {item.description}
+            </p>
+            <div className="flex gap-3 transition-all md:text-2xl">
+              <NavLink
+                to={item.sourceCodeLink}
+                target="_blank"
+                className="px-2 py-1 mr-2 bg-orange-300 border-none rounded-md cursor-pointer md:p-3 sm:px-2 sm:py-2 hover:text-slate-900"
+              >
+                Source Code
+              </NavLink>
+              <NavLink
+                to={item.demoLink}
+                target="_blank"
+                className="px-2 py-1 ml-2 bg-orange-300 border-none rounded-md cursor-pointer md:p-3 sm:px-2 sm:py-2 hover:text-slate-900"
+              >
+                Live Demo
+              </NavLink>
             </div>
-          </article>
-        );
-        //End of Project
-      })}
-    </>
+          </motion.div>
+        </div>
+      </div>
+    </section>
   );
 };
 export default Project;

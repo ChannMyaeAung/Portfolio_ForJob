@@ -1,35 +1,46 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import styles from "../../style";
-import { motion } from "framer-motion";
-import { useInView } from "react-intersection-observer";
 import Project from "./Project";
+import { projectsData } from "../../data/projects";
+import { motion, useScroll, useSpring } from "framer-motion";
 
 const Projects = () => {
-  const options = {
-    rootMargin: "250px",
-    threshold: 0,
-    triggerOnce: true,
-  };
+  const ref = useRef();
 
-  const { ref, inView } = useInView(options);
+  const { scrollYProgress } = useScroll({
+    target: ref,
+    offset: ["end end", "start start"],
+  });
+
+  const scaleX = useSpring(scrollYProgress, { stiffness: 100, damping: 30 });
 
   return (
-    <section
-      ref={ref}
-      className={`${
-        inView
-          ? "opacity-100 translate-y-0 delay-100 ease-in-out duration-500 "
-          : "opacity-0 translate-y-[300px] delay-100 ease-in-out duration-500 "
-      } ${styles.paddingX}`}
-    >
+    <div ref={ref} className={`${styles.paddingX} relative `}>
       {/* Main Heading */}
       {/* Primary Heading */}
-      <h2 className={`primary__heading text-center`}>Projects</h2>
-      {/* Horizontal Divier */}
-      <div id="horizontal__divider" className="primary__dividerBg" />
+      <section className="flex flex-col items-center justify-center">
+        {/* Primary Heading */}
+        <h2 className={`primary__heading text-center`}>Projects</h2>
+        {/* Horizontal Divier */}
+        <div id="horizontal__divider" className="primary__dividerBg" />
+      </section>
 
-      <Project />
-    </section>
+      <div
+        id="progress"
+        className="sticky top-16 left-0 py-1 pt-[calc(100vh-70px)] sm:pt-5 text-xl sm:text-4xl  text-center text-orange-300 md:pt-10"
+      >
+        <h3 className="mb-3 font-extrabold">Featured Works</h3>
+        <motion.div
+          id="progress__bar"
+          style={{ scaleX }}
+          className="h-3 bg-primary_orange bg-opacity-80"
+        ></motion.div>
+      </div>
+
+      {projectsData.map((item, index) => (
+        <Project key={item.title} item={item} />
+      ))}
+    </div>
     /* End of Project Component */
   );
 };

@@ -6,12 +6,12 @@ import styles from "../../style";
 
 const Footer = () => {
   return (
-    <footer className="relative bottom-0 w-full mt-16">
+    <footer className="flex flex-col justify-end w-full h-screen mt-16 snap-center">
       {/* Divider */}
-      <div
+      {/* <div
         className="w-[90%] mx-auto h-[1px] my-6 bg-dimWhite"
         id="footer__divider"
-      />
+      /> */}
       {/* Pages and Social Media Links */}
       <div id="footer__top" className="grid grid-cols-2 place-items-center">
         {/* Pages */}

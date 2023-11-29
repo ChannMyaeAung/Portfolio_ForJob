@@ -1,56 +1,52 @@
 import React from "react";
 import styles from "../../style";
-import { useInView } from "react-intersection-observer";
 import Lottie from "lottie-react";
 import envelopeAnimation from "../../assets/animations/Contact_Animation.json";
+
+/* Motion */
+import { motion } from "framer-motion";
+import { fadeIn } from "../../animation";
+
 const Contact = () => {
-  const options = {
-    rootMargin: "250px",
-    threshold: 0,
-    triggerOnce: true,
-  };
-
-  const { ref, inView } = useInView(options);
-
   return (
-    <section
-      ref={ref}
-      className={`px-3 ${
-        inView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-[300px]"
-      } ease-in-out duration-1000 ${styles.flexCenter} flex-col gap-3`}
-      id="contact"
-    >
-      {/* Primary Heading */}
-      <h2 className={`primary__heading text-center md:text-start`}>Contact</h2>
-      {/* Horizontal Divier */}
-      <div id="horizontal__divider" className="primary__dividerBg" />
+    <div className={`px-3 ease-in-out duration-1000 h-full`} id="contact">
+      <section className="flex flex-col items-center justify-center">
+        {/* Primary Heading */}
+        <h2 className={`primary__heading text-center`}>Contact</h2>
+        {/* Horizontal Divier */}
+        <div id="horizontal__divider" className="primary__dividerBg" />
+      </section>
 
-      <div id="envelope" className="aspect-video w-96">
-        <Lottie animationData={envelopeAnimation} />
-      </div>
+      <section className={`${styles.flexCenter} flex-col`}>
+        {/* Paragraph */}
+        <motion.p
+          variants={fadeIn("up", 0.2)}
+          initial="hidden"
+          whileInView={"show"}
+          viewport={{ once: true, amount: 0.5 }}
+          className={`${styles.paragraph} max-w-[470px] text-center mb-5`}
+        >
+          Thank you for visiting my{" "}
+          <strong className="text-indigo-600">portfolio</strong>. I'm excited
+          about the prospect of contribution my skills and passion as{" "}
+          <strong className="text-indigo-600">a front-end developer</strong>. If
+          you have any job opportunities, projects, or collaboration that align
+          with my expertise, I'd love to hear from you. Feel free to get in
+          touch using the button below. I'm looking forward to the possibility
+          of joining your team and making a positive impact.
+        </motion.p>
 
-      {/* Paragraph */}
-      <p className={`${styles.paragraph} max-w-[470px] text-center mb-5`}>
-        Thank you for visiting my{" "}
-        <strong className="text-indigo-600">portfolio</strong>. I'm excited
-        about the prospect of contribution my skills and passion as{" "}
-        <strong className="text-indigo-600">a front-end developer</strong>. If
-        you have any job opportunities, projects, or collaboration that align
-        with my expertise, I'd love to hear from you. Feel free to get in touch
-        using the button below. I'm looking forward to the possibility of
-        joining your team and making a positive impact.
-      </p>
-
-      {/* Reach out button */}
-      <a
-        target="_blank"
-        href="mailto: chanmyaeaung@my.jcu.edu.au"
-        rel="noreferrer"
-        className={`${styles.cursorTransition} primary__button hover:text-[#c86800] hover:bg-white`}
-      >
-        Reach out
-      </a>
-    </section>
+        {/* Reach out button */}
+        <a
+          target="_blank"
+          href="mailto: chanmyaeaung@my.jcu.edu.au"
+          rel="noreferrer"
+          className={`${styles.cursorTransition} primary__button hover:text-[#c86800] hover:bg-white`}
+        >
+          Reach out
+        </a>
+      </section>
+    </div>
   );
 };
 
